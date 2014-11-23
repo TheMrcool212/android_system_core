@@ -51,6 +51,7 @@ struct listnode
 
 void list_init(struct listnode *list);
 void list_add_tail(struct listnode *list, struct listnode *item);
+void list_add_head(struct listnode *head, struct listnode *item);
 void list_remove(struct listnode *item);
 
 #define list_empty(list) ((list) == (list)->next)
