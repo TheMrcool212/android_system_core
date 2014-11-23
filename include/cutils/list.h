@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2013 The Android Open Source Project
+ * Copyright (C) 2010 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,33 +49,9 @@ struct listnode
          node != (list); \
          node = n, n = node->next)
 
-static inline void list_init(struct listnode *node)
-{
-    node->next = node;
-    node->prev = node;
-}
-
-static inline void list_add_tail(struct listnode *head, struct listnode *item)
-{
-    item->next = head;
-    item->prev = head->prev;
-    head->prev->next = item;
-    head->prev = item;
-}
-
-static inline void list_add_head(struct listnode *head, struct listnode *item)
-{
-    item->next = head->next;
-    item->prev = head;
-    head->next->prev = item;
-    head->next = item;
-}
-
-static inline void list_remove(struct listnode *item)
-{
-    item->next->prev = item->prev;
-    item->prev->next = item->next;
-}
+void list_init(struct listnode *list);
+void list_add_tail(struct listnode *list, struct listnode *item);
+void list_remove(struct listnode *item);
 
 #define list_empty(list) ((list) == (list)->next)
 #define list_head(list) ((list)->next)
