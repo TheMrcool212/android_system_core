@@ -58,15 +58,18 @@ endif
 LOCAL_MODULE := liblog
 LOCAL_SRC_FILES := $(liblog_host_sources)
 LOCAL_CFLAGS := -DFAKE_LOG_DEVICE=1 -Werror
+LOCAL_LDLIBS += -lpthread
 LOCAL_MULTILIB := both
 include $(BUILD_HOST_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := liblog
-LOCAL_WHOLE_STATIC_LIBRARIES := liblog
+LOCAL_WHOLE_STATIC_LIBRARIES := liblog 
+LOCAL_WHOLE_SHARED_LIBRARIES := libcutils 
 ifeq ($(strip $(HOST_OS)),linux)
 LOCAL_LDLIBS := -lrt
 endif
+LOCAL_LDLIBS += -lpthread
 LOCAL_MULTILIB := both
 include $(BUILD_HOST_SHARED_LIBRARY)
 
@@ -84,8 +87,7 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := liblog
-LOCAL_WHOLE_STATIC_LIBRARIES := liblog
+LOCAL_WHOLE_STATIC_LIBRARIES := liblog libcutils
 LOCAL_CFLAGS := $(LIBLOG_CFLAGS) -Werror
 include $(BUILD_SHARED_LIBRARY)
-
 include $(call first-makefiles-under,$(LOCAL_PATH))
